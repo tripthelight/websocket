@@ -55,23 +55,6 @@ wss.on("connection", async (socket, req) => {
   console.log("A new client connected");
   // await getUserCount();
 
-  // const userId = Math.random().toString(36).substring(2);
-  /*
-  const socketId = `user:socket:${userId}`;
-
-  // WebSocket 연결 상태를 Redis에 저장
-  redis.set(
-    socketId,
-    JSON.stringify({
-      readyState: socket.readyState, // WebSocket의 상태 저장
-      remoteAddress: socket._socket.remoteAddress, // 클라이언트의 IP 주소 등 추가 정보 저장
-      socket
-    })
-  );
-
-  sendMessageToUser(userId, "hello");
-  */
-
   const aaaLength = Array.from(wss.clients).filter((client) => {
     return client.id === "aaa";
   });

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSocket Client</title>
+  </head>
+  <body>
+    <h1>WebSocket 연결 테스트</h1>
+    <div id="message"></div>
+
+    <script>
+      // WebSocket 서버와 연결
+      const socket = new WebSocket("ws://localhost:3000");
+
+      // 연결이 열리면 서버로 메시지 전송
+      socket.addEventListener("open", () => {
+        console.log("Connected to WebSocket server");
+        socket.send("Hello from client");
+      });
+
+      // 서버에서 받은 메시지 처리
+      socket.addEventListener("message", (event) => {
+        const msgData = JSON.parse(event.data);
+
+        if (msgData.type === "join") {
+          console.log("msg : ", msgData.data);
+
+          document.getElementById("message").innerText = msgData.data;
+        }
+      });
+
+      // 오류 처리
+      socket.addEventListener("error", (event) => {
+        console.error("WebSocket error:", event);
+      });
+
+      // 연결 종료 처리
+      socket.addEventListener("close", () => {
+        console.log("Disconnected from WebSocket server");
+      });
+    </script>
+  </body>
+</html>
